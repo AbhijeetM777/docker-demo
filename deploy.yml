@@ -1,0 +1,20 @@
+---
+
+  - name: Deploy Docker Application
+    hosts: production
+    become: yes
+
+
+
+    tasks:
+      - name: Pull latest Docker image
+        shell: docker pull abhijeetam7/docker-demo:v1
+
+      - name: Stop existing container
+        shell: docker stop docker-demo || true
+
+      - name: Remove existing container
+        shell: docker rm docker-demo || true
+
+      - name: Start new container
+        shell: docker run -d --name docker-demo -p 80:80 abhijeetam7/docker-demo:v1
